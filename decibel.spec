@@ -10,6 +10,9 @@ License:	LGPL
 Group:		System/Libraries
 URL:		http://decibel.kde.org/
 Source0:	%name-%version.tar.gz
+BuildRequires:  kde4-macros
+BuildRequires:  telepathy-qt-devel 
+BuildRequires:  libtapioca-qt-devel
 Requires:	%lib_name = %version
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
