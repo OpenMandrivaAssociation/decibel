@@ -1,18 +1,18 @@
-Name:		decibel
-Version:	0.5.0
-Release:	%mkrel 1
-Summary:	Decibel: Realtime communications framework
-License:	LGPL
-Group:		System/Libraries
-URL:		http://decibel.kde.org/
-Source0:	%name-%version.tar.gz
-BuildRequires:  kde4-macros
-BuildRequires:  telepathy-qt-devel 
-BuildRequires:  libtapioca-qt-devel
+Name: decibel
+Version: 0.5.0
+Release: %mkrel 1
+Summary: Decibel: Realtime communications framework
+License: LGPL
+Group: System/Libraries
+URL: http://decibel.kde.org/
+Source0: %name-%version.tar.gz
+BuildRequires: kde4-macros >= 3.92
+BuildRequires: telepathy-qt-devel 
+BuildRequires: libtapioca-qt-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}
+Obsoletes: %{_lib}decibel4
 
 %description
-
 Decibel is a realtime communications framework, meant to integrate services
 like CTI (Computer Telephone Integration), VoIP (Voice over IP), text based
 chat and instant messaging.
@@ -39,20 +39,22 @@ required by the users communication needs.
 %files 
 %defattr(-,root,root)
 %_kde_bindir/decibel
-%_kde_datadir/dbus-1/services/de.basyskom.simpleclient.service
-%_kde_datadir/Decibel/components/de.basyskom.simpleclient.textchannel.component
+%_kde_bindir/decibel_logger
+%_kde_bindir/minigui
+%_kde_datadir/dbus-1/services/*
+%_kde_datadir/Decibel
+%_kde_datadir/kde4/services/*
 %_kde_docdir/Decibel/demos.html
 %_kde_libdir/Decibel
+%_kde_libdir/kde4/*
 
 #--------------------------------------------------------------------
 
-%define lib_name %mklibname decibel 6
-
+%define lib_name %mklibname decibel 5
 
 %package -n %lib_name
-Summary:        Headers files for %{name}
-Group:          Development/Other
-Provides:       libdecibel
+Summary: Headers files for %{name}
+Group: System/Libraries
 
 %description -n %lib_name
 Libraries for %name
@@ -66,22 +68,22 @@ Libraries for %name
 
 #--------------------------------------------------------------------
 
-%define develname %mklibname decibel -d
+%package devel
+Requires: %{lib_name} = %{version}
+Summary: %{name} development files
+Group: Development/Other
+Provides: libdecibel-devel = %version
+Obsoletes: %{_lib}decibel-devel
+Obsoletes: %{_lib}decibel4-devel
 
-%package  -n    %develname
-Requires:       %{lib_name} = %{version}
-Summary:        %{name} development files
-Group:          Development/Other
-Provides:       decibel-devel
-
-%description -n %develname
+%description devel
 %{name} development files.
 
-%files  -n %develname
+%files devel
 %defattr(-,root,root)
-
 %_kde_includedir/*
-%_kde_libdir/libdecibel.*
+%_kde_libdir/*.so
+%_kde_libdir/pkgconfig/*
 
 #--------------------------------------------------------------------
 
@@ -90,7 +92,6 @@ Provides:       decibel-devel
 
 %build
 %cmake_kde4 
-
 
 %make
 
