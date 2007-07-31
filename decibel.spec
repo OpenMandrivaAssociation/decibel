@@ -1,11 +1,8 @@
-%define lib_name_orig %mklibname %name
-%define lib_major 4
-%define lib_name %lib_name_orig%lib_major
 
-Summary:	Decibel: Realtime communications framework
 Name:		decibel
-Version:	0.4.0
-Release:	%mkrel 1
+Version:	0.5.0
+Release:	%mkrel 0.%revision.1
+Summary:	Decibel: Realtime communications framework
 License:	LGPL
 Group:		System/Libraries
 URL:		http://decibel.kde.org/
@@ -13,7 +10,6 @@ Source0:	%name-%version.tar.gz
 BuildRequires:  kde4-macros
 BuildRequires:  telepathy-qt-devel 
 BuildRequires:  libtapioca-qt-devel
-Requires:	%lib_name = %version
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
@@ -47,8 +43,12 @@ required by the users communication needs.
 %_kde_datadir/dbus-1/services/de.basyskom.simpleclient.service
 %_kde_datadir/Decibel/components/de.basyskom.simpleclient.textchannel.component
 %_kde_docdir/Decibel/demos.html
+%_kde_libdir/Decibel
 
 #--------------------------------------------------------------------
+
+%define lib_name %mklibname decibel 6
+
 
 %package -n %lib_name
 Summary:        Headers files for %{name}
@@ -57,66 +57,38 @@ Provides:       libdecibel
 
 %description -n %lib_name
 Libraries for %name
-%post -n %{lib_name} -p /sbin/ldconfig
 
+%post -n %{lib_name} -p /sbin/ldconfig
 %postun -n %{lib_name} -p /sbin/ldconfig
 
 %files -n %lib_name
 %defattr(-,root,root)
-%_kde_libdir/libdecibel.so.0.4.0
-%_kde_libdir/Decibel/decibel_chatstarter_demo
-%_kde_libdir/Decibel/decibel_defaultcmfor_demo
-%_kde_libdir/Decibel/decibel_deleteaccount_demo
-%_kde_libdir/Decibel/decibel_listaccounts_demo
-%_kde_libdir/Decibel/decibel_listcms_demo
-%_kde_libdir/Decibel/decibel_listcmsfor_demo
-%_kde_libdir/Decibel/decibel_phonestarter_demo
-%_kde_libdir/Decibel/decibel_registeraccount_demo
-%_kde_libdir/Decibel/decibel_setdefaultcmfor_demo
-%_kde_libdir/Decibel/decibel_setpresence_demo
-%_kde_libdir/Decibel/decibel_simpleclient_demo
-%_kde_libdir/Decibel/decibel_supportedprotocols_demo
+%_kde_libdir/libdecibel.so.*
 
 #--------------------------------------------------------------------
 
-%package  -n    %lib_name-devel
+%define develname %mklibname decibel -d
+
+%package  -n    %develname
 Requires:       %{lib_name} = %{version}
 Summary:        %{name} development files
 Group:          Development/Other
 Provides:       decibel-devel
 
-%description -n %lib_name-devel
+%description -n %develname
 %{name} development files.
 
-%files  -n %lib_name-devel
+%files  -n %develname
 %defattr(-,root,root)
 
-%_kde_includedir/Decibel/AccountData
-%_kde_includedir/Decibel/AccountManager
-%_kde_includedir/Decibel/ChannelHandler
-%_kde_includedir/Decibel/ComponentManager
-%_kde_includedir/Decibel/ContactManager
-%_kde_includedir/Decibel/DBusNames
-%_kde_includedir/Decibel/Errors
-%_kde_includedir/Decibel/ProtocolManager
-%_kde_includedir/Decibel/Types
-%_kde_includedir/Decibel/accountdata.h
-%_kde_includedir/Decibel/accountmanager.h
-%_kde_includedir/Decibel/channelhandler.h
-%_kde_includedir/Decibel/componentmanager.h
-%_kde_includedir/Decibel/contactmanager.h
-%_kde_includedir/Decibel/dbusnames.h
-%_kde_includedir/Decibel/decibel_export.h
-%_kde_includedir/Decibel/errors.h
-%_kde_includedir/Decibel/protocolmanager.h
-%_kde_includedir/Decibel/types.h
-%_kde_libdir/libdecibel.so
+%_kde_includedir/*
+%_kde_libdir/libdecibel.*
+
 #--------------------------------------------------------------------
 
-
 %prep
-
 %setup -q
+
 %build
 %cmake_kde4 
 
@@ -130,3 +102,4 @@ cd build
 
 %clean
 rm -rf %{buildroot}
+
