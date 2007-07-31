@@ -1,12 +1,14 @@
 Name: decibel
 Version: 0.5.0
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Decibel: Realtime communications framework
 License: LGPL
 Group: System/Libraries
 URL: http://decibel.kde.org/
 Source0: %name-%version.tar.gz
 BuildRequires: kde4-macros >= 3.92
+BuildRequires: qt4-devel
+BuildRequires: kdelibs4-devel
 BuildRequires: telepathy-qt-devel 
 BuildRequires: libtapioca-qt-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}
