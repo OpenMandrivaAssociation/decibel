@@ -11,7 +11,6 @@ BuildRequires: qt4-devel
 BuildRequires: kdelibs4-devel
 BuildRequires: telepathy-qt-devel 
 BuildRequires: libtapioca-qt-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}
 Obsoletes: %{_lib}decibel4
 
 %description
