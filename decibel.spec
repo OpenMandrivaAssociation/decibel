@@ -1,11 +1,13 @@
+%define svn 831027
+
 Name: decibel
-Version: 0.5.0
-Release: %mkrel 4
+Version: 0.7.0
+Release: %mkrel 0.%svn.1
 Summary: Decibel: Realtime communications framework
 License: LGPL
 Group: System/Libraries
 URL: http://decibel.kde.org/
-Source0: %name-%version.tar.gz
+Source0: %name-%version.%svn.tar.bz2
 BuildRequires: kde4-macros >= 3.92
 BuildRequires: qt4-devel
 BuildRequires: kdelibs4-devel
@@ -42,40 +44,49 @@ required by the users communication needs.
 %defattr(-,root,root)
 %_kde_bindir/decibel
 %_kde_bindir/decibel_logger
-%_kde_bindir/minigui
+%_kde_bindir/textchannelgui
 %_kde_datadir/dbus-1/services/*
 %_kde_datadir/Decibel
-%_kde_datadir/kde4/services/*
 %_kde_docdir/Decibel/demos.html
 %_kde_libdir/Decibel
-%_kde_libdir/kde4/*
 
 #--------------------------------------------------------------------
 
-%define lib_name %mklibname decibel 5
+%define  Decibel_major 0
+%define  libDecibel %mklibname Decibel %Decibel_major
 
-%package -n %lib_name
+
+%package -n %libDecibel
+Summary: Headers files for %{name}
+Group: System/Libraries
+Obsoletes:  %{_lib}decibel5 < 0.7.0-0.831027.1
+
+%description -n %libDecibel
+Libraries for %name
+
+%files -n %libDecibel
+%defattr(-,root,root)
+%_kde_libdir/libDecibel.so.*
+
+#--------------------------------------------------------------------
+
+%define decibel_pluginhelper_major 0
+%define libdecibel_pluginhelper %mklibname decibel_pluginhelper %decibel_pluginhelper_major
+
+%package -n %libdecibel_pluginhelper
 Summary: Headers files for %{name}
 Group: System/Libraries
 
-%description -n %lib_name
+%description -n %libdecibel_pluginhelper
 Libraries for %name
 
-%if %mdkversion < 200900
-%post -n %{lib_name} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{lib_name} -p /sbin/ldconfig
-%endif
-
-%files -n %lib_name
+%files -n %libdecibel_pluginhelper
 %defattr(-,root,root)
-%_kde_libdir/libdecibel.so.*
+%_kde_libdir/libdecibel_pluginhelper.so.*
 
 #--------------------------------------------------------------------
 
 %package devel
-Requires: %{lib_name} = %{version}
 Summary: %{name} development files
 Group: Development/Other
 Provides: libdecibel-devel = %version
@@ -97,6 +108,7 @@ Obsoletes: %{_lib}decibel4-devel
 %setup -q
 
 %build
+%define _disable_ld_no_undefined 1
 %cmake_kde4 
 
 %make
