@@ -1,7 +1,7 @@
-%define svn 831027
+%define svn 889077
 
 Name: decibel
-Version: 0.7.0
+Version: 0.7.1
 Release: %mkrel 0.%svn.1
 Summary: Decibel: Realtime communications framework
 License: LGPL
@@ -105,7 +105,7 @@ Obsoletes: %{_lib}decibel4-devel
 #--------------------------------------------------------------------
 
 %prep
-%setup -q
+%setup -q -n %name
 
 %build
 %define _disable_ld_no_undefined 1
