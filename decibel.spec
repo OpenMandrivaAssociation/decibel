@@ -108,7 +108,6 @@ Obsoletes: %{_lib}decibel4-devel
 %setup -q -n %name
 
 %build
-%define _disable_ld_no_undefined 1
 %cmake_kde4 
 
 %make
