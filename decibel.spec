@@ -2,7 +2,7 @@
 
 Name: decibel
 Version: 0.7.1
-Release: %mkrel 0.%svn.1
+Release: %mkrel 0.%svn.2
 Summary: Decibel: Realtime communications framework
 License: LGPL
 Group: System/Libraries
