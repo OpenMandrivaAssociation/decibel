@@ -1,0 +1,13 @@
+Index: decibel/demos/accounthandling/registeraccount.cpp
+===================================================================
+--- decibel/demos/accounthandling/registeraccount.cpp
++++ decibel/demos/accounthandling/registeraccount.cpp	2009-05-26 18:46:10.000000000 +0200
+@@ -61,7 +61,7 @@
+     QVariantMap data;
+     for (int i = 1; i < argc; ++i)
+     {
+-        QStringList keyValue(QString(argv[i]).split("="));
++        QStringList keyValue((QString(argv[i])).split("="));
+ 
+         // instead of proper error handling:
+         Q_ASSERT(keyValue.size() == 2);
