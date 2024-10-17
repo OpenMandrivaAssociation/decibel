@@ -6,7 +6,7 @@ Release: %mkrel 0.%svn.3
 Summary: Decibel: Realtime communications framework
 License: LGPL
 Group: System/Libraries
-URL: http://decibel.kde.org/
+URL: https://decibel.kde.org/
 Source0: %name-%version.%svn.tar.bz2
 Patch0: decibel-0.7.1-gcc44.patch
 BuildRequires: kde4-macros >= 3.92
