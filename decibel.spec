@@ -9,6 +9,7 @@ Group: System/Libraries
 URL: https://decibel.kde.org/
 Source0: %name-%version.%svn.tar.bz2
 Patch0: decibel-0.7.1-gcc44.patch
+BuildRequires:	make
 BuildRequires: kde4-macros >= 3.92
 BuildRequires: qt4-devel
 BuildRequires: kdelibs4-devel
